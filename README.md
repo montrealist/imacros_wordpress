@@ -15,9 +15,9 @@ This worked for me. Some commands may not work with iMacros in Chrome - depends 
 
 ## Prerequisites
 
-CSV in a specific format ("post_url","title_in_new_language","N/A","year","month","day","hour","minute"); should be in the `Datasources` folder - and the .iim file itself would reside in `Macros` folder;
-having Polylang plugin activated on the site;
-being logged in to the WordPress site.
+* CSV in a specific format ("post_url","title_in_new_language","N/A","year","month","day","hour","minute"); should be in the `Datasources` folder - and the .iim file itself would reside in `Macros` folder;
+* having Polylang plugin activated on the site;
+* being logged in to the WordPress site.
 
 ## What it does
 
