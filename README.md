@@ -4,13 +4,20 @@ Helping migrate from mQtranslate/qTranslate plugin onto Polylang.
 
 ## Overview
 
-Macro created for migrating a WordPress site from QTranslate/mQtranslate plugin onto Polylang. 
+Macro created for migrating a WordPress site from QTranslate/mQtranslate plugin onto Polylang.
+
+## Environment
+
+This worked for me. Some commands may not work with iMacros in Chrome - depends on environment, having file access app installed, chance, etc.
+
+* Mac OS 10.10
+* Firefox 34.0.5
 
 ## Prerequisites
 
-CSV in a specific format ("post_url","title_in_new_language","N/A","year","month","day","hour","minute"); 
-having Polylang plugin activated; 
-being logged in to the WordPress site. 
+CSV in a specific format ("post_url","title_in_new_language","N/A","year","month","day","hour","minute"); should be in the `Datasources` folder - and the .iim file itself would reside in `Macros` folder;
+having Polylang plugin activated on the site;
+being logged in to the WordPress site.
 
 ## What it does
 
