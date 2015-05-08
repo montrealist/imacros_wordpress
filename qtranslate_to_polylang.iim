@@ -1,0 +1,54 @@
+VERSION BUILD=8070701 RECORDER=CR
+SET !ERRORIGNORE YES
+SET !EXTRACT_TEST_POPUP NO
+SET !DATASOURCE urls_and_dates.csv
+SET !DATASOURCE_LINE {{!LOOP}}
+URL GOTO={{!COL1}}
+
+SET !EXTRACTADD {{!URLCURRENT}}
+SET !EXTRACTADD {{!COL1}}
+
+TAG POS=1 TYPE=TITLE ATTR=* EXTRACT=TXT
+TAG POS=1 TYPE=A ATTR=TXT:Edit<SP>Post
+
+'get textarea contents:
+TAG POS=1 TYPE=TEXTAREA FORM=ID:post ATTR=ID:content EXTRACT=TXT
+
+'save all text to var:
+SET !ORIGINAL {{!EXTRACT}}
+
+'get the English out:
+SET !VAR2 EVAL("var x=\"{{!EXTRACT}}\"; var rest1 = x.match(/<!--:en-->((.|\\n)*)<!--:--><!--:fr-->/); rest1[1];")
+PROMPT {{!VAR2}}
+
+'get the French out:
+SET !VAR3 EVAL("var y=\"{{!EXTRACT}}\"; var rest2 = y.match(/<!--:fr-->((.|\\n)*)<!--:-->/); rest2[1];")
+PROMPT {{!VAR3}}
+'paste the English back:
+TAG POS=1 TYPE=TEXTAREA FORM=ID:post ATTR=ID:content CONTENT={{!VAR2}}
+
+SAVEAS TYPE=EXTRACT FOLDER=* FILE=+_postadd_results
+
+'click the update button:
+TAG POS=1 TYPE=INPUT:SUBMIT FORM=ID:post ATTR=ID:publish
+
+' click on the "add french translation" plus sign:
+TAG POS=2 TYPE=A ATTR=CLASS:pll_icon_add
+
+TAG POS=1 TYPE=TEXTAREA FORM=ID:post ATTR=ID:content CONTENT={{!VAR3}}
+TAG POS=1 TYPE=INPUT:TEXT FORM=ID:post ATTR=ID:title CONTENT={{!COL2}}
+
+'click on Edit for date:
+TAG POS=3 TYPE=SPAN ATTR=TXT:Edit
+
+TAG POS=1 TYPE=SELECT FORM=ID:post ATTR=ID:mm CONTENT=%{{!COL5}}
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:post ATTR=NAME:jj CONTENT={{!COL6}}
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:post ATTR=NAME:aa CONTENT={{!COL4}}
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:post ATTR=NAME:hh CONTENT={{!COL7}}
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:post ATTR=NAME:mn CONTENT={{!COL8}}
+
+'click the ok button to confirm date change
+TAG POS=3 TYPE=A ATTR=TXT:OK
+
+' click the Publish button
+TAG POS=1 TYPE=INPUT:SUBMIT FORM=ID:post ATTR=ID:publish
